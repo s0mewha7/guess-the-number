@@ -46,7 +46,8 @@ go build main.go
 
 ```
 GuessTheNumber/
-├── main.go          # Основной код игры
+├── guess
+└── guess.go          # Основной код игры
 ├── results.json     # Файл с историей игр (создаётся автоматически)
 └── README.md        # Этот файл
 ```
