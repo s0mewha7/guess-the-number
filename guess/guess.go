@@ -143,11 +143,11 @@ func chooseLevel(level string) (interval, attempts int) {
 	level = strings.ToLower(level)
 
 	switch level {
-	case "easy":
+	case "easy", "1", "e":
 		return 50, 15
-	case "medium":
+	case "medium", "2", "m":
 		return 100, 10
-	case "hard":
+	case "hard", "3", "h":
 		return 200, 5
 	default:
 		fmt.Println(failure + "❌ Неверный выбор уровня сложности!" + reset)
@@ -157,16 +157,34 @@ func chooseLevel(level string) (interval, attempts int) {
 }
 
 func main() {
-	fmt.Println(info + "Игра 'Угадай число' - от 1 до 100 началась!" + reset)
-	fmt.Println(info + "Угадайте число за 10 попыток!" + reset)
+	for {
+		fmt.Println(info + "Игра 'Угадай число' - от 1 до 100 началась!" + reset)
+		fmt.Println(info + "Угадайте число за 10 попыток!" + reset)
 
-	var level string
-	fmt.Printf(info + "Выберите уровень сложности: " + reset)
-	fmt.Scan(&level)
-	interval, attempt := chooseLevel(level)
+		var level string
+		fmt.Printf(info + "Выберите уровень сложности: " + reset)
+		fmt.Scan(&level)
 
-	secretNumber := rand.Intn(interval) + 1
-	remember := guessNumber(secretNumber, interval, attempt, level)
+		interval, attempt := chooseLevel(level)
 
-	fmt.Println(info+"Ваши попытки:"+reset, remember)
+		if interval == 0 || attempt == 0 {
+			fmt.Println(failure + "Игра завершена из-за некорректного выбора уровня!" + reset)
+			return
+		}
+
+		secretNumber := rand.Intn(interval) + 1
+		remember := guessNumber(secretNumber, interval, attempt, level)
+
+		fmt.Println(info+"Ваши попытки:"+reset, remember)
+
+		fmt.Print(info + "\n🎮 Сыграть ещё раз? (y/n): " + reset)
+		var answer string
+		fmt.Scan(&answer)
+
+		if strings.ToLower(answer) != "y" && strings.ToLower(answer) != "yes" && strings.ToLower(answer) != "да" {
+			fmt.Println(success + "\nСпасибо за игру! До свидания! 🎉" + reset)
+			break
+		}
+		fmt.Println()
+	}
 }
