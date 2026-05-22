@@ -177,12 +177,12 @@ func main() {
 
 		fmt.Println(info+"Ваши попытки:"+reset, remember)
 
-		fmt.Print(info + "\n🎮 Сыграть ещё раз? (y/n): " + reset)
+		fmt.Print(info + "\nСыграть ещё раз? (y/n): " + reset)
 		var answer string
 		fmt.Scan(&answer)
 
 		if strings.ToLower(answer) != "y" && strings.ToLower(answer) != "yes" && strings.ToLower(answer) != "да" {
-			fmt.Println(success + "\nСпасибо за игру! До свидания! 🎉" + reset)
+			fmt.Println(success + "\nСпасибо за игру! До свидания!" + reset)
 			break
 		}
 		fmt.Println()
